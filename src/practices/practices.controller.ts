@@ -15,6 +15,8 @@ import { CommonResponseDto, CommonRequestDto } from '@common/dtos';
 import { PracticesService } from './practices.service';
 import { PracticeDto } from './dto/practice.dto';
 import { PracticeUpdateDto } from './dto/practice-update.dto';
+import { Practice } from "./schemas/practices.schema";
+
 
 @Controller('practices')
 export class PracticesController {
@@ -28,8 +30,13 @@ export class PracticesController {
     return this.practicesService.practices(practiceRequestDto);
   }
 
+  @Get()
+  getAll(): Promise<Practice[]> {
+    return this.practicesService.getAll();
+  }
+
   @Get(':id')
-  getById(@Param('id') id: string): PracticeDto {
+  getById(@Param('id') id: string): Promise<Practice> {
     return this.practicesService.getById(id);
   }
 
@@ -37,12 +44,12 @@ export class PracticesController {
   update(
     @Param('id') id: string,
     @Body() practiceDto: PracticeUpdateDto,
-  ): PracticeDto {
+  ): Promise<Practice> {
     return this.practicesService.update(id, practiceDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    this.practicesService.remove(id);
+  remove(@Param('id') id: string): Promise<Practice> {
+    return this.practicesService.remove(id);
   }
 }

@@ -22,3 +22,8 @@ services:
     ports:
       - 27017:27017
     restart: always
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081

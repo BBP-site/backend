@@ -1,33 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { Contacts, ContactsDocument } from "./schemas/contacts.schema";
 
 @Injectable()
 export class ContactsService {
-  private contactsObj = {
-    address: '119121, г. Москва, Ружейный пер., д. 3',
-    phones: [
-      {
-        number: '+ 7 (495) 755-93-63',
-        desc: 'пн-пт 10:00-19:00',
-      },
-      {
-        number: '+ 7 (495) 755-93-63',
-        desc: 'круглосуточно',
-      },
-    ],
-    email: 'info1@bbp.ru',
-  };
+  constructor(@InjectModel(Contacts.name) private contactsModel: Model<ContactsDocument>) {}
 
-  contacts() {
-    return this.contactsObj;
+  async contacts(): Promise<Contacts[]> {
+    return this.contactsModel.find().exec();
   }
 
-  updateContacts(contacts: UpdateContactDto) {
-    return Object.entries(contacts).reduce((res, [key, value]) => {
-      if (res[key]) {
-        res[key] = value;
-      }
-      return res;
-    }, this.contactsObj);
+  async updateContacts(id: string, contacts: UpdateContactDto): Promise<Contacts> {
+    return this.contactsModel.findByIdAndUpdate(id, contacts, {new: true})
   }
 }

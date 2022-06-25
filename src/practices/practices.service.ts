@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { Model } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
 
 import { CommonRequestDto, CommonResponseDto, MetaDto } from '@common/dtos';
 import { PracticeUpdateDto } from './dto/practice-update.dto';
+import { Practice, PracticeDocument } from "./schemas/practices.schema";
 
 @Injectable()
 export class PracticesService {
+  constructor(@InjectModel(Practice.name) private practiceModel: Model<PracticeDocument>) {}
+
+  //удалить
   private practicesArr = [
     {
       id: '11',
@@ -28,6 +34,7 @@ export class PracticesService {
     },
   ];
 
+  //сам давай делай что ты там хотел, я ничего не понял
   practices(commonRequestDto: CommonRequestDto) {
     let sorted = this.practicesArr;
     if (commonRequestDto.sort) {
@@ -70,25 +77,19 @@ export class PracticesService {
     return new CommonResponseDto(data, meta);
   }
 
-  getById(id: string) {
-    return this.practicesArr.find((d) => d.id === id);
+  async getAll(): Promise<Practice[]> {
+    return this.practiceModel.find().exec();
   }
 
-  update(id: string, practiceDto: PracticeUpdateDto) {
-    let index = null;
-    this.practicesArr.find((d, i) => {
-      if (d.id === id) {
-        index = i;
-        return true;
-      }
-      return false;
-    });
-    this.practicesArr[index] = { id, ...practiceDto };
-
-    return this.practicesArr[index];
+  async getById(id: string): Promise<Practice> {
+    return this.practiceModel.findById(id);
   }
 
-  remove(id: string) {
-    this.practicesArr = this.practicesArr.filter((d) => d.id !== id);
+  async update(id: string, practiceDto: PracticeUpdateDto): Promise<Practice> {
+    return this.practiceModel.findByIdAndUpdate(id, practiceDto, {new: true});
+  }
+
+  async remove(id: string): Promise<Practice> {
+    return this.practiceModel.findByIdAndRemove(id);
   }
 }

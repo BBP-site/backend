@@ -10,6 +10,6 @@ COPY . .
 
 COPY ./dist ./dist
 
-ENV PORT 3000
+ENV PORT 5000
 
 CMD ["yarn", "start:dev"]
