@@ -9,7 +9,7 @@ import { Feedback, FeedbackDocument } from "./schemas/feedback.schema";
 export class FeedbackService {
   constructor(@InjectModel(Feedback.name) private feedbackModel: Model<FeedbackDocument>) {}
 
-  async createFeedback(feedback: CreateFeedbackDto): Promise<Feedback> {    console.log(feedback);
+  async createFeedback(feedback: CreateFeedbackDto): Promise<Feedback> {
     const newFeedback = new this.feedbackModel(feedback);
     return newFeedback.save();
   }
