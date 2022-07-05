@@ -8,15 +8,15 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 
 import { CommonResponseDto, CommonRequestDto } from '@common/dtos';
 
 import { PracticesService } from './practices.service';
-import { PracticeDto } from './dto/practice.dto';
 import { PracticeUpdateDto } from './dto/practice-update.dto';
-import { Practice } from "./schemas/practices.schema";
-
+import { Practice } from './schemas/practice.schema';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('practices')
 export class PracticesController {
@@ -26,7 +26,7 @@ export class PracticesController {
   @HttpCode(HttpStatus.OK)
   practices(
     @Body() practiceRequestDto: CommonRequestDto,
-  ): CommonResponseDto<PracticeDto> {
+  ): Promise<CommonResponseDto<Practice>> {
     return this.practicesService.practices(practiceRequestDto);
   }
 
@@ -41,6 +41,7 @@ export class PracticesController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard)
   update(
     @Param('id') id: string,
     @Body() practiceDto: PracticeUpdateDto,
@@ -49,6 +50,7 @@ export class PracticesController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   remove(@Param('id') id: string): Promise<Practice> {
     return this.practicesService.remove(id);
   }
