@@ -9,7 +9,6 @@ export class AuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log('canActivate');
     const request = context.switchToHttp().getRequest();
     const bearer = request.headers.authorization;
     if (!bearer || !bearer.length) return false;
