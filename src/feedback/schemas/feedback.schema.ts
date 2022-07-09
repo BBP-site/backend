@@ -5,17 +5,17 @@ export type FeedbackDocument = Feedback & Document;
 
 @Schema()
 export class Feedback {
-    @Prop()
-    name: string;
+  @Prop()
+  name: string;
 
-    @Prop()
-    phone: string;
+  @Prop()
+  phone: string;
 
-    @Prop()
-    email: string;
+  @Prop()
+  email: string;
 
-    @Prop()
-    question: string;
+  @Prop()
+  question: string;
 }
 
 export const FeedbackSchema = SchemaFactory.createForClass(Feedback);
