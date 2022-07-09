@@ -19,7 +19,7 @@ export class PracticesService {
   ): Promise<CommonResponseDto<Practice>> {
     const total = await this.practiceModel.estimatedDocumentCount();
     const meta = new MetaDto({ commonRequestDto, total });
-    const filter = extractFilter(commonRequestDto, ['content']);
+    const filter = extractFilter(commonRequestDto, ['title']);
     const sort = extractSort(commonRequestDto);
     const data = await this.practiceModel
       .find(filter)
@@ -34,8 +34,9 @@ export class PracticesService {
     return this.practiceModel.find().exec();
   }
 
-  async getById(id: string): Promise<Practice> {
-    return this.practiceModel.findById(id);
+  async getById(id: string): Promise<CommonResponseDto<Practice>> {
+    const data = await this.practiceModel.findById(id);
+    return new CommonResponseDto(data);
   }
 
   async update(id: string, practiceDto: PracticeUpdateDto): Promise<Practice> {

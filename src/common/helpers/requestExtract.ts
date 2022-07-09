@@ -11,8 +11,8 @@ export const extractFilter = (
   return {
     ...commonRequestDto.filter,
     ...(like.length &&
-      like.reduce((filters, filterName) => {
-        return {
+      like.reduce(
+        (filters, filterName) => ({
           ...filters,
           ...(commonRequestDto.filter?.[filterName] && {
             [filterName]: {
@@ -20,8 +20,9 @@ export const extractFilter = (
               $options: 'i',
             },
           }),
-        };
-      }, {})),
+        }),
+        {},
+      )),
   };
 };
 
