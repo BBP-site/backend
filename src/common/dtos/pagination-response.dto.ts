@@ -1,5 +1,5 @@
 import { IsInt } from 'class-validator';
-import { OffsetPagination } from '@common/interfaces';
+import { IOffsetPagination } from '@common/interfaces';
 
 export class PaginationResponseDto {
   @IsInt()
@@ -11,7 +11,7 @@ export class PaginationResponseDto {
   @IsInt()
   readonly total: number;
 
-  constructor({ limit, offset, total }: OffsetPagination) {
+  constructor({ limit, offset, total }: IOffsetPagination) {
     if (limit) this.limit = limit;
     if (offset) this.offset = offset;
     if (total) this.total = total;

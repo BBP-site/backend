@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Response } from "@common/schemas/common-response-data.schema";
 
-export type ContactDocument = Contact & Document;
+export type TContactDocument = Contact & Document;
 
 @Schema()
-export class Contact {
+export class Contact extends Response {
   @Prop()
   address: string;
 
