@@ -14,6 +14,7 @@ export class CollegiumService {
     }
 
     async updateCollegium(id: string, updateCollegiumDto: UpdateCollegiumDto): Promise<Collegium> {
+        console.log(await this.collegiumModel.findByIdAndUpdate(id, updateCollegiumDto, {new: true}))
         return this.collegiumModel.findByIdAndUpdate(id, updateCollegiumDto, {new: true});
     }
 }
