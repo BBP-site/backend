@@ -1,4 +1,14 @@
-import { IsString, IsEmail, IsArray, IsOptional } from 'class-validator';
+import { IsString, IsEmail, IsArray, IsOptional, ValidateNested } from 'class-validator';
+import { Type } from "class-transformer";
+
+class Phone {
+  @IsString()
+  number?: string;
+
+  @IsString()
+  @IsOptional()
+  desc?: string
+}
 
 export class UpdateContactDto {
   @IsOptional()
@@ -7,7 +17,9 @@ export class UpdateContactDto {
 
   @IsOptional()
   @IsArray()
-  phones?: { number: string; desc: string }[];
+  @ValidateNested()
+  @Type(() => Phone)
+  phones?: Phone[];
 
   @IsOptional()
   @IsEmail()

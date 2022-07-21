@@ -30,11 +30,6 @@ export class PracticesController {
     return this.practicesService.practices(practiceRequestDto);
   }
 
-  @Get()
-  getAll(): Promise<Practice[]> {
-    return this.practicesService.getAll();
-  }
-
   @Get(':id')
   getById(@Param('id') id: string): Promise<CommonResponseDto<Practice>> {
     return this.practicesService.getById(id);

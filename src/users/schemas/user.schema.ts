@@ -1,13 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Response } from "@common/schemas/common-response-data.schema";
 
-export type UserDocument = User & Document;
+export type TUserDocument = User & Document;
 
 @Schema()
-export class User {
-  @Prop()
-  _id: string;
-
+export class User extends Response {
   @Prop()
   login: string;
 
