@@ -1,8 +1,8 @@
-export interface OffsetPaginationQuery {
+export interface IOffsetPaginationQuery {
   limit: number;
   offset: number;
 }
 
-export interface OffsetPagination extends OffsetPaginationQuery {
+export interface IOffsetPagination extends IOffsetPaginationQuery {
   total: number;
 }

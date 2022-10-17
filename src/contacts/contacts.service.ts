@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Contact, ContactDocument } from './schemas/contact.schema';
+import { Contact, TContactDocument } from './schemas/contact.schema';
 
 @Injectable()
 export class ContactsService {
   constructor(
-    @InjectModel(Contact.name) private contactsModel: Model<ContactDocument>,
+    @InjectModel(Contact.name) private contactsModel: Model<TContactDocument>,
   ) {}
 
   async contacts(): Promise<Contact[]> {

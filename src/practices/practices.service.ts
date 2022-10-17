@@ -6,12 +6,12 @@ import { extractFilter, extractSort } from '@common/helpers/requestExtract';
 import { CommonRequestDto, CommonResponseDto, MetaDto } from '@common/dtos';
 
 import { PracticeUpdateDto } from './dto/practice-update.dto';
-import { Practice, PracticeDocument } from './schemas/practice.schema';
+import { Practice, TPracticeDocument } from './schemas/practice.schema';
 
 @Injectable()
 export class PracticesService {
   constructor(
-    @InjectModel(Practice.name) private practiceModel: Model<PracticeDocument>,
+    @InjectModel(Practice.name) private practiceModel: Model<TPracticeDocument>,
   ) {}
 
   async practices(
@@ -28,10 +28,6 @@ export class PracticesService {
       .limit(meta.pagination.limit);
 
     return new CommonResponseDto(data, meta);
-  }
-
-  async getAll(): Promise<Practice[]> {
-    return this.practiceModel.find().exec();
   }
 
   async getById(id: string): Promise<CommonResponseDto<Practice>> {

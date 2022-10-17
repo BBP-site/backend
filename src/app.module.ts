@@ -9,6 +9,7 @@ import { ContactsModule } from './contacts/contacts.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { PracticesModule } from './practices/practices.module';
 import { AuthModule } from './auth/auth.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { AuthModule } from './auth/auth.module';
     ContactsModule,
     FeedbackModule,
     PracticesModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
