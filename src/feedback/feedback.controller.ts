@@ -1,4 +1,4 @@
-import {Body, Controller, HttpCode, HttpStatus, Post} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { FeedbackService } from './feedback.service';
@@ -9,9 +9,7 @@ export class FeedbackController {
 
   @Post()
   @HttpCode(HttpStatus.OK)
-  createFeedback(
-    @Body() createFeedbackDto: CreateFeedbackDto,
-  ): Promise<void> {
+  createFeedback(@Body() createFeedbackDto: CreateFeedbackDto): Promise<void> {
     return this.feedbackService.createFeedback(createFeedbackDto);
   }
 }
