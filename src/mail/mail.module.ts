@@ -6,25 +6,27 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: {
-        host: `${process.env.HOST_EMAIL}`,
-        secure: false,
-        auth: {
-          user: `${process.env.USER_EMAIL}`,
-          pass: `${process.env.PASS_EMAIL}`,
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: {
+          host: `${process.env.HOST_EMAIL}`,
+          secure: false,
+          auth: {
+            user: `${process.env.USER_EMAIL}`,
+            pass: `${process.env.PASS_EMAIL}`,
+          },
         },
-      },
-      defaults: {
-        from: `${process.env.USER_EMAIL}`,
-      },
-      template: {
-        dir: join(__dirname, 'templates'),
-        adapter: new HandlebarsAdapter(),
-        options: {
-          strict: true,
+        defaults: {
+          from: `${process.env.USER_EMAIL}`,
         },
-      },
+        template: {
+          dir: join(__dirname, 'templates'),
+          adapter: new HandlebarsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
     }),
   ],
   providers: [MailService],
